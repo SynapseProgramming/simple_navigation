@@ -12,14 +12,15 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
+
     use_sim_time = LaunchConfiguration('use_sim_time')
     map = LaunchConfiguration('map')
     params_file = LaunchConfiguration('params_file')
 
-    nav2_launch_file_dir = os.path.join(get_package_share_directory('nav2_bringup'), 'launch')
     current_dir=get_package_share_directory('simple_navigation')
-    rviz_config_dir = os.path.join(get_package_share_directory('nav2_bringup'),'rviz','nav2_default_view.rviz')
+    rviz_config_dir = os.path.join(current_dir,'rviz','main_nav2_test.rviz')
 
+    #MAIN PARAMETERS TO CHANGE HERE
     #map_name='turtlebot3_world.yaml'
     map_name= 'myfirstmap.yaml'
     param_name='nav_config.yaml'
@@ -40,23 +41,20 @@ def generate_launch_description():
             'use_sim_time',
             default_value='false',
             description='Use simulation (Gazebo) clock if true'),
-
+        #launch navigation
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(nav2_launch_file_dir, 'bringup_launch.py')),
+            PythonLaunchDescriptionSource(os.path.join(current_dir,'launch', 'bringup_launch.py')),
             launch_arguments={
                 'map': map,
                 'use_sim_time': use_sim_time,
                 'params_file': params_file}.items(),
-        )#,
-          #IncludeLaunchDescription(
-         #   PythonLaunchDescriptionSource(os.path.join(nav2_launch_file_dir, 'rviz_launch.py'))
-        #),
-
-       # Node(
-        #    package='rviz2',
-         #   executable='rviz2',
-          #  name='rviz2',
-           # arguments=['-d', rviz_config_dir],
-            #parameters=[{'use_sim_time': use_sim_time}],
-            #output='screen'),
+        ),
+        #run rviz2 with settings
+        Node(
+            package='rviz2',
+           executable='rviz2',
+            name='rviz2',
+            arguments=['-d', rviz_config_dir],
+            parameters=[{'use_sim_time': use_sim_time}],
+            output='screen')
     ])
