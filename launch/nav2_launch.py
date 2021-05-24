@@ -20,8 +20,8 @@ def generate_launch_description():
     current_dir=get_package_share_directory('simple_navigation')
     rviz_config_dir = os.path.join(get_package_share_directory('nav2_bringup'),'rviz','nav2_default_view.rviz')
 
-    map_name='turtlebot3_world.yaml'
-    #map_name= 'myfirstmap.yaml'
+    #map_name='turtlebot3_world.yaml'
+    map_name= 'myfirstmap.yaml'
     param_name='nav_config.yaml'
 
 
@@ -47,10 +47,10 @@ def generate_launch_description():
                 'map': map,
                 'use_sim_time': use_sim_time,
                 'params_file': params_file}.items(),
-        ),
-          IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(nav2_launch_file_dir, 'rviz_launch.py'))
-        ),
+        )#,
+          #IncludeLaunchDescription(
+         #   PythonLaunchDescriptionSource(os.path.join(nav2_launch_file_dir, 'rviz_launch.py'))
+        #),
 
        # Node(
         #    package='rviz2',
