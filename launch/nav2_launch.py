@@ -19,6 +19,7 @@ def generate_launch_description():
 
     current_dir=get_package_share_directory('simple_navigation')
     rviz_config_dir = os.path.join(current_dir,'rviz','main_nav2_test.rviz')
+    labview_inter_dir=get_package_share_directory('labview_r2interface')
 
     ld=LaunchDescription()
     #MAIN PARAMETERS TO CHANGE HERE
@@ -49,6 +50,9 @@ def generate_launch_description():
                     'use_sim_time': use_sim_time,
                     'params_file': params_file}.items(),
         )
+        #launch the labview interface programs
+    launch_labviewinterface=IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(os.path.join(labview_inter_dir,'launch', 'r2interface.launch.py')))
         #run rviz2 with settings
     run_rviz2=Node(
                 package='rviz2',
@@ -63,5 +67,6 @@ def generate_launch_description():
     ld.add_action(declare_sim_time)
     ld.add_action(launch_navigation)
     ld.add_action(run_rviz2)
+    ld.add_action(launch_labviewinterface)
 
     return ld
