@@ -20,41 +20,48 @@ def generate_launch_description():
     current_dir=get_package_share_directory('simple_navigation')
     rviz_config_dir = os.path.join(current_dir,'rviz','main_nav2_test.rviz')
 
+    ld=LaunchDescription()
     #MAIN PARAMETERS TO CHANGE HERE
     #map_name='turtlebot3_world.yaml'
     map_name= 'myfirstmap.yaml'
     param_name='nav_config.yaml'
 
 
-    return LaunchDescription([
-        DeclareLaunchArgument(
-            'map',
-            default_value=os.path.join(current_dir,'map',map_name),
-            description='Full path to map file to load'),
+    declare_map=DeclareLaunchArgument(
+                'map',
+                default_value=os.path.join(current_dir,'map',map_name),
+                description='Full path to map file to load')
 
-        DeclareLaunchArgument(
-            'params_file',
-            default_value=os.path.join(current_dir,'param',param_name),
-            description='Full path to param file to load'),
+    declare_params= DeclareLaunchArgument(
+                'params_file',
+                default_value=os.path.join(current_dir,'param',param_name),
+                description='Full path to param file to load')
 
-        DeclareLaunchArgument(
-            'use_sim_time',
-            default_value='false',
-            description='Use simulation (Gazebo) clock if true'),
+    declare_sim_time=DeclareLaunchArgument(
+                'use_sim_time',
+                default_value='false',
+                description='Use simulation (Gazebo) clock if true')
         #launch navigation
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(current_dir,'launch', 'bringup_launch.py')),
-            launch_arguments={
-                'map': map,
-                'use_sim_time': use_sim_time,
-                'params_file': params_file}.items(),
-        ),
+    launch_navigation= IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(os.path.join(current_dir,'launch', 'bringup_launch.py')),
+                launch_arguments={
+                    'map': map,
+                    'use_sim_time': use_sim_time,
+                    'params_file': params_file}.items(),
+        )
         #run rviz2 with settings
-        Node(
-            package='rviz2',
-           executable='rviz2',
-            name='rviz2',
-            arguments=['-d', rviz_config_dir],
-            parameters=[{'use_sim_time': use_sim_time}],
-            output='screen')
-    ])
+    run_rviz2=Node(
+                package='rviz2',
+               executable='rviz2',
+                name='rviz2',
+                arguments=['-d', rviz_config_dir],
+                parameters=[{'use_sim_time': use_sim_time}],
+                output='screen')
+
+    ld.add_action(declare_map)
+    ld.add_action(declare_params)
+    ld.add_action(declare_sim_time)
+    ld.add_action(launch_navigation)
+    ld.add_action(run_rviz2)
+
+    return ld
