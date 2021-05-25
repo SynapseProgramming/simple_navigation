@@ -24,7 +24,8 @@ def generate_launch_description():
     ld=LaunchDescription()
     #MAIN PARAMETERS TO CHANGE HERE
     #map_name='turtlebot3_world.yaml'
-    map_name= 'myfirstmap.yaml'
+    map_name= 'fake_map.yaml'
+    #map_name= 'myfirstmap.yaml'
     param_name='nav_config.yaml'
 
 
