@@ -18,6 +18,7 @@ def generate_launch_description():
     current_dir=get_package_share_directory('simple_navigation')
     rviz_config_dir = os.path.join(current_dir,'rviz','slam_rviz2_config.rviz')
     labview_inter_dir=get_package_share_directory('labview_r2interface')
+    office_bot_des_dir=get_package_share_directory('officebot_description')
 
     declare_use_sim_time_argument = DeclareLaunchArgument(
         'use_sim_time',
@@ -46,6 +47,9 @@ def generate_launch_description():
                     parameters=[{'use_sim_time': use_sim_time}],
                     output='screen')
 
+    launch_officebot_description= IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(os.path.join(office_bot_des_dir,'launch','bot_des.launch.py')))
+
         #launch the labview interface programs
     launch_labviewinterface=IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(os.path.join(labview_inter_dir,'launch', 'r2interface.launch.py')))
@@ -58,5 +62,6 @@ def generate_launch_description():
     ld.add_action(start_async_slam_toolbox_node)
     ld.add_action(launch_labviewinterface)
     ld.add_action(run_rviz2)
+    ld.add_action(launch_officebot_description)
 
     return ld
