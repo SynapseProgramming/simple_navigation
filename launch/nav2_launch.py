@@ -18,7 +18,7 @@ def generate_launch_description():
     params_file = LaunchConfiguration('params_file')
 
     current_dir=get_package_share_directory('simple_navigation')
-    rviz_config_dir = os.path.join(current_dir,'rviz','main_nav2_test.rviz')
+    rviz_config_dir = os.path.join(current_dir,'rviz','ot_bot_rviz.rviz')
     labview_inter_dir=get_package_share_directory('labview_r2interface')
 
     ld=LaunchDescription()
@@ -26,8 +26,9 @@ def generate_launch_description():
     #map_name='turtlebot3_world.yaml'
     map_name= 'fake_map.yaml'
     #map_name= 'myfirstmap.yaml'
-    param_name='nav_config.yaml'
+#    param_name='nav_config.yaml'
 
+    param_name='office_bot.yaml'
 
     declare_map=DeclareLaunchArgument(
                 'map',
