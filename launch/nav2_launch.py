@@ -18,16 +18,18 @@ def generate_launch_description():
     params_file = LaunchConfiguration('params_file')
 
     current_dir=get_package_share_directory('simple_navigation')
-    rviz_config_dir = os.path.join(current_dir,'rviz','main_nav2_test.rviz')
+    rviz_config_dir = os.path.join(current_dir,'rviz','ot_bot_rviz.rviz')
     labview_inter_dir=get_package_share_directory('labview_r2interface')
+    office_bot_des_dir=get_package_share_directory('officebot_description')
 
     ld=LaunchDescription()
     #MAIN PARAMETERS TO CHANGE HERE
     #map_name='turtlebot3_world.yaml'
     map_name= 'fake_map.yaml'
     #map_name= 'myfirstmap.yaml'
-    param_name='nav_config.yaml'
+#    param_name='nav_config.yaml'
 
+    param_name='office_bot.yaml'
 
     declare_map=DeclareLaunchArgument(
                 'map',
@@ -54,6 +56,9 @@ def generate_launch_description():
         #launch the labview interface programs
     launch_labviewinterface=IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(os.path.join(labview_inter_dir,'launch', 'r2interface.launch.py')))
+
+    launch_officebot_description= IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(os.path.join(office_bot_des_dir,'launch','bot_des.launch.py')))
         #run rviz2 with settings
     run_rviz2=Node(
                 package='rviz2',
@@ -69,5 +74,6 @@ def generate_launch_description():
     ld.add_action(launch_navigation)
     ld.add_action(run_rviz2)
     ld.add_action(launch_labviewinterface)
+    ld.add_action(launch_officebot_description)
 
     return ld
