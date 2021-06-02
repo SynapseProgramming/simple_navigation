@@ -27,6 +27,7 @@ install(
   map 
   param 
   rviz
+  behaviour_trees
   DESTINATION share/${PROJECT_NAME}
 )
 
