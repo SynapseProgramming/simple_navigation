@@ -13,17 +13,7 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
 
-    use_sim_time = LaunchConfiguration('use_sim_time')
-    map = LaunchConfiguration('map')
-    params_file = LaunchConfiguration('params_file')
 
-    current_dir=get_package_share_directory('simple_navigation')
-    rviz_config_dir = os.path.join(current_dir,'rviz','ot_bot_rviz.rviz')
-    labview_inter_dir=get_package_share_directory('labview_r2interface')
-    office_bot_des_dir=get_package_share_directory('officebot_description')
-    twist_mux_dir=get_package_share_directory('cmd_vel_mux')
-
-    ld=LaunchDescription()
     #MAIN PARAMETERS TO CHANGE HERE
     #map_name='turtlebot3_world.yaml'
     map_name= 'fake_map.yaml'
@@ -31,6 +21,21 @@ def generate_launch_description():
 #    param_name='nav_config.yaml'
 
     param_name='office_bot.yaml'
+    #remember to add back the default one
+#    bt_filename='navigate_distance_replan.xml'
+    bt_filename='navigate_replanning_recovery.xml'
+    use_sim_time = LaunchConfiguration('use_sim_time')
+    map = LaunchConfiguration('map')
+    params_file = LaunchConfiguration('params_file')
+
+
+    current_dir=get_package_share_directory('simple_navigation')
+    rviz_config_dir = os.path.join(current_dir,'rviz','ot_bot_rviz.rviz')
+    labview_inter_dir=get_package_share_directory('labview_r2interface')
+    office_bot_des_dir=get_package_share_directory('officebot_description')
+    twist_mux_dir=get_package_share_directory('cmd_vel_mux')
+    bt_filename_dir= os.path.join(current_dir, 'behaviour_trees', bt_filename)
+    ld=LaunchDescription()
 
     declare_map=DeclareLaunchArgument(
                 'map',
@@ -52,7 +57,8 @@ def generate_launch_description():
                 launch_arguments={
                     'map': map,
                     'use_sim_time': use_sim_time,
-                    'params_file': params_file}.items(),
+                    'params_file': params_file,
+                    'default_bt_xml_filename': bt_filename_dir }.items(),
         )
         #launch the labview interface programs
     launch_labviewinterface=IncludeLaunchDescription(
