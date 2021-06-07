@@ -62,7 +62,7 @@ def generate_launch_description():
         )
         #launch the labview interface programs
     launch_labviewinterface=IncludeLaunchDescription(
-                PythonLaunchDescriptionSource(os.path.join(labview_inter_dir,'launch', 'r2interface.launch.py')))
+                PythonLaunchDescriptionSource(os.path.join(labview_inter_dir,'launch', 'lidar_odom.launch.py')))
         #launch robot state publisher
     launch_officebot_description= IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(os.path.join(office_bot_des_dir,'launch','bot_des.launch.py')))
