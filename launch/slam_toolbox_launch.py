@@ -53,7 +53,7 @@ def generate_launch_description():
 
         #launch the labview interface programs
     launch_labviewinterface=IncludeLaunchDescription(
-                PythonLaunchDescriptionSource(os.path.join(labview_inter_dir,'launch', 'r2interface.launch.py')))
+                PythonLaunchDescriptionSource(os.path.join(labview_inter_dir,'launch', 'lidar_odom.launch.py')))
 
     #launch twist mux
     launch_twist_mux= IncludeLaunchDescription(
