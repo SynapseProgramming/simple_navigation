@@ -7,6 +7,7 @@ from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
+from launch.actions import SetEnvironmentVariable
 
 
 
@@ -19,7 +20,7 @@ def generate_launch_description():
     #map_name= 'fake_map.yaml'
     map_name= 'dmro_lab_7jun.yaml'
     #map_name= 'myfirstmap.yaml'
-#    param_name='nav_config.yaml'
+    #param_name='nav_config.yaml'
 
     param_name='office_bot.yaml'
     #remember to add back the default one
@@ -28,8 +29,8 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time')
     map = LaunchConfiguration('map')
     params_file = LaunchConfiguration('params_file')
-
-
+    # for libopenvdb to work
+    set_ev= SetEnvironmentVariable('LD_PRELOAD','/usr/lib/x86_64-linux-gnu/libjemalloc.so.2')
     current_dir=get_package_share_directory('simple_navigation')
     rviz_config_dir = os.path.join(current_dir,'rviz','ot_bot_rviz.rviz')
     labview_inter_dir=get_package_share_directory('labview_r2interface')
@@ -63,7 +64,7 @@ def generate_launch_description():
         )
         #launch the labview interface programs
     launch_labviewinterface=IncludeLaunchDescription(
-                PythonLaunchDescriptionSource(os.path.join(labview_inter_dir,'launch', 'lidar_odom.launch.py')))
+                PythonLaunchDescriptionSource(os.path.join(labview_inter_dir,'launch', 'r2interface.launch.py')))
         #launch robot state publisher
     launch_officebot_description= IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(os.path.join(office_bot_des_dir,'launch','bot_des.launch.py')))
@@ -87,5 +88,6 @@ def generate_launch_description():
     ld.add_action(launch_labviewinterface)
     ld.add_action(launch_officebot_description)
     ld.add_action(launch_twist_mux)
+    ld.add_action(set_ev)
 
     return ld
