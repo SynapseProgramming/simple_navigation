@@ -7,7 +7,6 @@ from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
-from launch.actions import SetEnvironmentVariable
 
 
 
@@ -26,11 +25,10 @@ def generate_launch_description():
     #remember to add back the default one
 #    bt_filename='navigate_distance_replan.xml'
     bt_filename='navigate_replanning_recovery.xml'
+
     use_sim_time = LaunchConfiguration('use_sim_time')
     map = LaunchConfiguration('map')
     params_file = LaunchConfiguration('params_file')
-    # for libopenvdb to work
-    set_ev= SetEnvironmentVariable('LD_PRELOAD','/usr/lib/x86_64-linux-gnu/libjemalloc.so.2')
     current_dir=get_package_share_directory('simple_navigation')
     rviz_config_dir = os.path.join(current_dir,'rviz','ot_bot_rviz.rviz')
     labview_inter_dir=get_package_share_directory('labview_r2interface')
@@ -88,6 +86,5 @@ def generate_launch_description():
     ld.add_action(launch_labviewinterface)
     ld.add_action(launch_officebot_description)
     ld.add_action(launch_twist_mux)
-    ld.add_action(set_ev)
 
     return ld
