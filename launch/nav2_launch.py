@@ -37,6 +37,8 @@ def generate_launch_description():
     office_bot_des_dir=get_package_share_directory('officebot_description')
     twist_mux_dir=get_package_share_directory('cmd_vel_mux')
     bt_filename_dir= os.path.join(current_dir, 'behaviour_trees', bt_filename)
+    realsense_ros_dir=get_package_share_directory('realsense2_camera')
+
     ld=LaunchDescription()
 
     declare_map=DeclareLaunchArgument(
@@ -60,7 +62,7 @@ def generate_launch_description():
                     'map': map,
                     'use_sim_time': use_sim_time,
                     'params_file': params_file,
-                    'default_bt_xml_filename': bt_filename_dir }.items(),
+                    'default_bt_xml_filename': bt_filename_dir }.items()
         )
         #launch the labview interface programs
     launch_labviewinterface=IncludeLaunchDescription(
@@ -71,6 +73,13 @@ def generate_launch_description():
         #launch twist mux
     launch_twist_mux= IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(os.path.join(twist_mux_dir,'launch','cmd_vel_mux-launch.py')))
+    launch_realsense_camera= IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(os.path.join(realsense_ros_dir,'launch','rs_launch.py')),
+                launch_arguments={
+                'enable_pointcloud': 'true',
+                'device_type': 'd435'}.items()
+                )
+
         #run rviz2 with settings
     run_rviz2=Node(
                 package='rviz2',
@@ -89,5 +98,6 @@ def generate_launch_description():
     ld.add_action(launch_officebot_description)
     ld.add_action(launch_twist_mux)
     ld.add_action(set_ev)
+    ld.add_action(launch_realsense_camera)
 
     return ld
