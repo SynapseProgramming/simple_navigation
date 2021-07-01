@@ -94,10 +94,10 @@ def generate_launch_description():
     ld.add_action(declare_sim_time)
     ld.add_action(launch_navigation)
     ld.add_action(run_rviz2)
-    ld.add_action(launch_labviewinterface)
-    ld.add_action(launch_officebot_description)
+ #   ld.add_action(launch_labviewinterface)
+ #   ld.add_action(launch_officebot_description)
     ld.add_action(launch_twist_mux)
     ld.add_action(set_ev)
-    ld.add_action(launch_realsense_camera)
+  #  ld.add_action(launch_realsense_camera)
 
     return ld
