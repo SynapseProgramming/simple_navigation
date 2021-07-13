@@ -31,7 +31,7 @@ amcl:
     sigma_hit: 0.1
     tf_broadcast: true
     transform_tolerance: 1.0
-    update_min_a: 0.1
+    update_min_a: 0.2
     update_min_d: 0.25
     z_hit: 0.9
     z_max: 0.05
