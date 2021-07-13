@@ -15,8 +15,8 @@ def generate_launch_description():
     # MAIN PARAMETERS TO CHANGE HERE
     # map_name='turtlebot3_world.yaml'
     # map_name= 'fake_map.yaml'
-    #map_name = "dmro_lab_7jun.yaml"
-    map_name="dmro_mapjuly.yaml"
+    # map_name = "dmro_lab_7jun.yaml"
+    map_name = "dmro_mapjuly.yaml"
     # map_name= 'myfirstmap.yaml'
     # param_name='nav_config.yaml'
 
@@ -108,12 +108,12 @@ def generate_launch_description():
     ld.add_action(declare_map)
     ld.add_action(declare_params)
     ld.add_action(declare_sim_time)
-    ld.add_action(launch_navigation)
+    # ld.add_action(launch_navigation)
     ld.add_action(run_rviz2)
     ld.add_action(launch_labviewinterface)
     ld.add_action(launch_officebot_description)
     ld.add_action(launch_twist_mux)
-    ld.add_action(set_ev)
-    ld.add_action(launch_realsense_camera)
+    # ld.add_action(set_ev)
+    # ld.add_action(launch_realsense_camera)
 
     return ld
