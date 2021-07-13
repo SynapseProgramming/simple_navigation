@@ -69,7 +69,7 @@ def generate_launch_description():
             ),
             DeclareLaunchArgument(
                 "map",
-                default_value=os.path.join(bringup_dir, "map", "turtlebot3_world.yaml"),
+                default_value=os.path.join(bringup_dir, "map", "dmro_mapjuly.yaml"),
                 description="Full path to map yaml file to load",
             ),
             DeclareLaunchArgument(
