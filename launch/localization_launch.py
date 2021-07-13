@@ -36,6 +36,8 @@ def generate_launch_description():
 
     twist_mux_dir = get_package_share_directory("cmd_vel_mux")
     use_sim_time = LaunchConfiguration("use_sim_time")
+
+    rviz_config_dir = os.path.join(bringup_dir, "rviz", "amcl_tests.rviz")
     autostart = LaunchConfiguration("autostart")
     params_file = LaunchConfiguration("params_file")
     lifecycle_nodes = ["map_server", "amcl"]
@@ -100,6 +102,14 @@ def generate_launch_description():
                 output="screen",
                 parameters=[configured_params],
                 remappings=remappings,
+            ),
+            Node(
+                package="rviz2",
+                executable="rviz2",
+                name="rviz2",
+                arguments=["-d", rviz_config_dir],
+                parameters=[{"use_sim_time": use_sim_time}],
+                output="screen",
             ),
             Node(
                 package="nav2_lifecycle_manager",
