@@ -85,11 +85,6 @@ def generate_launch_description():
                 default_value=os.path.join(bringup_dir, "param", "nav_config.yaml"),
                 description="Full path to the ROS2 parameters file to use",
             ),
-            IncludeLaunchDescription(
-                PythonLaunchDescriptionSource(
-                    os.path.join(twist_mux_dir, "launch", "cmd_vel_mux-launch.py")
-                )
-            ),
             Node(
                 package="nav2_map_server",
                 executable="map_server",
