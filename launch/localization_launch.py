@@ -84,7 +84,7 @@ def generate_launch_description():
             ),
             DeclareLaunchArgument(
                 "params_file",
-                default_value=os.path.join(bringup_dir, "param", "nav_config.yaml"),
+                default_value=os.path.join(bringup_dir, "param", "office_bot.yaml"),
                 description="Full path to the ROS2 parameters file to use",
             ),
             Node(
