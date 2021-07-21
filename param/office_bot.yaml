@@ -196,7 +196,7 @@ local_costmap:
       stvl_layer:
         plugin: "spatio_temporal_voxel_layer/SpatioTemporalVoxelLayer" # For Foxy and later
         enabled: true
-        voxel_decay: 1.0
+        voxel_decay: 3.0
         decay_model: 0
         voxel_size: 0.05
         track_unknown_space: true
@@ -273,7 +273,7 @@ global_costmap:
       stvl_layer:
         plugin: "spatio_temporal_voxel_layer/SpatioTemporalVoxelLayer" # For Foxy and later
         enabled: true
-        voxel_decay: 1.0
+        voxel_decay: 3.0
         decay_model: 0
         voxel_size: 0.05
         track_unknown_space: true
