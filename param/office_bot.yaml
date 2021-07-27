@@ -110,8 +110,8 @@ controller_server:
     # Goal checker parameters
     goal_checker:
       plugin: "nav2_controller::SimpleGoalChecker"
-      xy_goal_tolerance: 0.25
-      yaw_goal_tolerance: 0.25
+      xy_goal_tolerance: 0.30
+      yaw_goal_tolerance: 0.30
       stateful: True
     # DWB parameters
     FollowPath:
@@ -133,8 +133,8 @@ controller_server:
       decel_lim_theta: -1.1  # rad/s^2
       vx_samples: 20
       vy_samples: 0
-      vtheta_samples: 20
-      sim_time: 2.0
+      vtheta_samples: 30
+      sim_time: 3.0
       linear_granularity: 0.05
       angular_granularity: 0.025
       transform_tolerance: 0.2
