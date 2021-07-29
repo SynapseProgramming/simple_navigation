@@ -74,5 +74,18 @@ cd ~/.ros
 cp -rf log <destination file path>
 ```
 
-
+## Navigation Testing Procedure
+1. Firstly, launch nav2.launch.py and localise the robot. 
+2. Open A new terminal and key in the following command.
+```
+ros2 bag record -o nav2_test /scan /tf  /tf_static  /local_plan /received_global_plan
+```
+3. Allow the robot to navigate around the map.
+4. Once sufficient data is collected, save the bag file by entering ctrl+c in the terminal which runs the bag file.
+### Playing back recorded data
+1. Firstly, open a new terminal and run the following command to launch the map server.
+```
+ros2 launch goal_plotter goal_plotter.launch.py 
+```
+2. Next, open a new terminal and play back the bag file which you have recorded.
 
